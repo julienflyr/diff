@@ -9,8 +9,9 @@ NOTE: All active development now takes place on the v3 branch.
 ## Installation
 
 For version 3:
+
 ```
-go get github.com/r3labs/diff/v3
+go get github.com/julienflyr/diff/v3
 ```
 
 ## Changelog Format
@@ -50,7 +51,6 @@ Change{
 
 A diffable value can be/contain any of the following types:
 
-
 | Type         | Supported |
 | ------------ | --------- |
 | struct       | ✔         |
@@ -61,7 +61,6 @@ A diffable value can be/contain any of the following types:
 | map          | ✔         |
 | pointer      | ✔         |
 | custom types | ✔         |
-
 
 Please see the docs for more supported types, options and features.
 
@@ -84,7 +83,7 @@ In order for struct fields to be compared, they must be tagged with a given name
 Diffing a basic set of values can be accomplished using the diff functions. Any items that specify a "diff" tag using a name will be compared.
 
 ```go
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
     ID    string `diff:"id"`
@@ -124,8 +123,9 @@ When marshalling the changelog to json, the output will look like:
 ### Options and Configuration
 
 Options can be set on the differ at call time which effect how diff acts when building the change log.
+
 ```go
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
     ID    string `diff:"id"`
@@ -151,7 +151,7 @@ func main() {
 You can also create a new instance of a differ that allows options to be set.
 
 ```go
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
     ID    string `diff:"id"`
@@ -194,18 +194,19 @@ Supported options are:
 `TagName` sets the tag name to use when getting field names and options.
 
 ### Patch and merge support
-Diff additionally supports merge and patch. Similar in concept to text patching / merging the Patch function, given 
+
+Diff additionally supports merge and patch. Similar in concept to text patching / merging the Patch function, given
 a change log and a target instance will make a _best effort_ to apply the changes in the change log to the variable
-pointed to. The intention is that the target pointer is of the same type however, that doesn't necessarily have to be 
-true. For example, two slices of differing structs may be similar enough to apply changes to in a polymorphic way, and 
+pointed to. The intention is that the target pointer is of the same type however, that doesn't necessarily have to be
+true. For example, two slices of differing structs may be similar enough to apply changes to in a polymorphic way, and
 patch will certainly try.
 
 The patch function doesn't actually fail, and even if there are errors, it may succeed sufficiently for the task at hand.
-To accommodate this patch keeps track of each change log option it attempts to apply and reports the details of what 
+To accommodate this patch keeps track of each change log option it attempts to apply and reports the details of what
 happened for further scrutiny.
 
 ```go
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
     ID    string `diff:"id"`
@@ -239,7 +240,7 @@ Instances of differ with options set can also be used when patching.
 ```go
 package main
 
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
 	ID    string `json:"id"`
@@ -271,7 +272,7 @@ As a convenience, there is a Merge function that allows one to take three interf
 time.
 
 ```go
-import "github.com/r3labs/diff/v3"
+import "github.com/julienflyr/diff/v3"
 
 type Order struct {
     ID    string `diff:"id"`
@@ -298,6 +299,7 @@ func main() {
     ...
 }
 ```
+
 ## Running Tests
 
 ```
