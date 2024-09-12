@@ -291,8 +291,17 @@ func identifier(tag string, v reflect.Value) interface{} {
 	if v.Kind() != reflect.Struct {
 		return nil
 	}
-
+	m := v.Addr().MethodByName("Identifier")
+	if m.IsValid() {
+		return m.Call(nil)[0].Interface()
+	}
 	for i := 0; i < v.NumField(); i++ {
+		f := v.Field(i)
+		if f.Kind() == reflect.Struct {
+			if r := identifier(tag, f); r != nil {
+				return r
+			}
+		}
 		if hasTagOption(tag, v.Type().Field(i), "identifier") {
 			return v.Field(i).Interface()
 		}
